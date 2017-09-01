@@ -17,5 +17,5 @@ class WhatIs(QuestionTemplate):
 
     def interpret(self, match):
         target = HasKeyword(match.target.tokens)
-        definition = isDefinedIn(target)
+        definition = IsDefinedIn(target)
         return definition
