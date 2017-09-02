@@ -4,7 +4,7 @@
 Domain specific language for prototype1 quepy.
 """
 
-from quepy.dsl import FixedRelation
+from quepy.dsl import FixedRelation, FixedType
 
 class IsDefinedIn(FixedRelation):
     relation = "rdfs:comment"
@@ -16,4 +16,11 @@ class IsLocatedIn(FixedRelation):
 
 class LabelOf(FixedRelation):
     relation = "rdfs:label"
+    reverse = True
+
+class IsPlace(FixedType):
+    fixedtype = "dbpedia:Place"
+
+class UTCof(FixedRelation):
+    relation = "rdfs:utc"
     reverse = True

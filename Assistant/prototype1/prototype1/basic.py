@@ -7,7 +7,7 @@ Basic queries for prototype1 quepy.
 from refo import Group, Question, Plus
 from quepy.dsl import HasKeyword
 from quepy.parsing import Lemma, Pos, QuestionTemplate
-from dsl import IsDefinedIn, IsLocatedIn, LabelOf
+from dsl import IsDefinedIn, IsLocatedIn, LabelOf, IsPlace, UTCof
 
 class WhatIs(QuestionTemplate):
     """
@@ -38,3 +38,17 @@ class WhereIs(QuestionTemplate):
         location = IsLocatedIn(target)
         definition = LabelOf(location)
         return definition
+
+class WhatTime(QuestionTemplate):
+    """
+    Regex pour une question du type 'What time is it in ...'
+    Ex : 'What time is it in Paris'
+    """
+
+    target = Question(Pos("DT")) + Group(Plus(Pos("NN") | Pos("NNS") | Pos("NNP") | Pos("NNPS")), "target")
+    regex = Lemma("what") + Lemma("time") + Lemma("be") + Question(Pos("PRP")) + Question(Pos("IN")) + target + Question(Pos("."))
+
+    def interpret(self, match):
+        place = HasKeyword(match.target.lemmas.title()) + IsPlace()
+        utc_offset = UTCof(place)
+        return utc_offset, "time"
