@@ -25,11 +25,13 @@ class WhatIs(QuestionTemplate):
 
 class WhereIs(QuestionTemplate):
     """
-    Questions du type "Where is the Big Ben?"
+    Questions du type "Where is smthg?"
+    ex: "Where is the Big Ben?"
     """
 
     target = Group(Plus(Pos("NNP") | Pos("NNPS")), "target")
     regex = Lemma("where") + Lemma("be") + Question(Pos("DT")) + target + Question(Pos("."))
+    #A modifier un peu pour éviter des problèmes comme avec "Where is Big Ben?"
 
     def interpret(self, match):
         target = HasKeyword(match.target.tokens)
