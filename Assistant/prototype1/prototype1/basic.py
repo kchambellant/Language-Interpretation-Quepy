@@ -9,6 +9,13 @@ from quepy.dsl import HasKeyword
 from quepy.parsing import Lemma, Pos, QuestionTemplate
 from dsl import IsDefinedIn, IsLocatedIn, LabelOf, IsPlace, UTCof
 
+class Thing(Particle):
+    regex = Question(Pos("JJ")) + (Pos("NN") | Pos("NNP") | Pos("NNS")) |\
+            Pos("VBN")
+
+    def interpret(self, match):
+        return HasKeyword(match.words.tokens)
+
 class WhatIs(QuestionTemplate):
     """
     Questions du type "What is smthg?"
