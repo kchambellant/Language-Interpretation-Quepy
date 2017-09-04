@@ -1,17 +1,22 @@
+#!/usr/bin/env python
 # coding: utf-8
 
-"""
-Main script for prototype1 quepy.
-"""
+import sys
+import time
+import random
+import datetime
+import argparse
 
 import quepy
-import argparse
-parser = argparse.ArgumentParser(description='Quepy prototype number 1')
+from SPARQLWrapper import SPARQLWrapper, JSON
 
-parser.add_argument("question", help='Question à poser sous la forme "question"')
-args = parser.parse_args()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Quepy prototype number 1')
+
+    parser.add_argument("question", help='Question à poser sous la forme "question"')
+    args = parser.parse_args()
 
 
-prototype1 = quepy.install("prototype1")
-target, query, metadata = prototype1.get_query(args.question)
-print query
+    prototype1 = quepy.install("dbpedia")
+    target, query, metadata = prototype1.get_query(args.question)
+    print query
