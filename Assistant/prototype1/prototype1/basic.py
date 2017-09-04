@@ -46,7 +46,8 @@ class WhatTime(QuestionTemplate):
     """
 
     target = Question(Pos("DT")) + Group(Plus(Pos("NN") | Pos("NNS") | Pos("NNP") | Pos("NNPS")), "target")
-    regex = Lemma("what") + Lemma("time") + Lemma("be") + Question(Pos("PRP")) + Question(Pos("IN")) + target + Question(Pos("."))
+    debut = Plus(Lemma("what") | Lemma("time") | Lemma("be") | Question(Pos("PRP")))
+    regex = debut + Question(Pos("IN")) + target + Question(Pos("."))
 
     def interpret(self, match):
         place = HasKeyword(match.target.lemmas.title()) + IsPlace()
