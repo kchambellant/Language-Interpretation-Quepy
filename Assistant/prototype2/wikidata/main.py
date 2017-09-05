@@ -29,11 +29,27 @@ def query_change(query, target, label=False):
     return query, target
 
 
-metadico = {"whois":"print_personal"}
-
+metaDico = {"whois":"print_personal"}
+onthoDico = {"nom":"wdt:P1477", "age":"wdt:P569","nation":"wdt:P27","metier":"wdt:P106"}
 
 def print_personal(URI):
-    pass
+    res=[]
+    for i in range(len(onthoDico)):
+        request = requeteCreation(URI, onthoDico[onthoDico.keys()[i]])
+        result = requeteExecution(request)
+        res.append(result)
+        print(res)
+
+def requeteCreation(URI, dico):
+    request = "SELECT DISTINCT ?x0Label WHERE{\n wd:"+URI+" "+dico+" ?x0\n"+ 'SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }'+"\n}\n"
+    return request
+    
+def requeteExecution(request):
+    sparql.setQuery(request)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    result = print_define(results, "x0Label")
+    return result
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Quepy prototype number 1')
@@ -60,4 +76,4 @@ if __name__ == "__main__":
 
     print("print_define :")
     result = print_define(results, target, metadata)
-
+    print_personal(result)
