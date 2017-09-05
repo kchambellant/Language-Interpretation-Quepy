@@ -38,6 +38,6 @@ if __name__ == "__main__":
             sparql.setReturnFormat(JSON)
             results = sparql.query().convert()
 
-    print("print_define :")
-    print_define(results, target, metadata)
+   # print("print_define :")
+   # print_define(results, target, metadata)
     
