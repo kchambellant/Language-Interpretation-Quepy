@@ -1,22 +1,37 @@
+#!/usr/bin/env python
 # coding: utf-8
 
+# Copyright (c) 2012, Machinalis S.R.L.
+# This file is part of quepy and is distributed under the Modified BSD License.
+# You should have received a copy of license in the LICENSE file.
+#
+# Authors: Rafael Carrascosa <rcarrascosa@machinalis.com>
+#          Gonzalo Garcia Berrotaran <ggarcia@machinalis.com>
+
 """
-Main script for prototype1 quepy.
+Main script for DBpedia quepy.
 """
 
-import quepy
-import argparse
 import sys
 import time
 import random
 import datetime
+import argparse
 
+import quepy
 from SPARQLWrapper import SPARQLWrapper, JSON
+
+sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+dbpedia = quepy.install("dbpedia")
+
+# quepy.set_loglevel("DEBUG")
+
 
 def print_define(results, target, metadata=None):
     for result in results["results"]["bindings"]:
         if result[target]["xml:lang"] == "en":
             print result[target]["value"]
+            print
 
 
 def print_enum(results, target, metadata=None):
@@ -122,27 +137,49 @@ def wikipedia2dbpedia(wikipedia_url):
     else:
         return results["results"]["bindings"][0]["url"]["value"]
 
-    
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Quepy prototype number 1')
-    
-    prototype1 = quepy.install("dbpedia")
+
     question = ""
     while question != "bye" :
         question = raw_input("Quelle est votre requête ? (Si vous voulez quitter, tapez 'bye'.)\n")
         if question != "bye" :
-            target, query, metadata = prototype1.get_query(question)
-            print query
+            print_handlers = {
+                "define": print_define,
+                "enum": print_enum,
+                "time": print_time,
+                "literal": print_literal,
+                "age": print_age,
+            }
 
-            sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-            if target.startswith("?"):
-                target = target[1:]
-                if query:
-                    sparql.setQuery(query)
-                    sparql.setReturnFormat(JSON)
-                    results = sparql.query().convert()
+        print "-" * len(question)
 
-            print("Réponse")
-	    print (results)
-            print_define(results, target, metadata)
-    
+        target, query, metadata = dbpedia.get_query(question)
+
+        if isinstance(metadata, tuple):
+            query_type = metadata[0]
+            metadata = metadata[1]
+        else:
+            query_type = metadata
+            metadata = None
+
+        if query is None:
+            print "Query not generated :(\n"
+            continue
+
+        print query
+
+        if target.startswith("?"):
+            target = target[1:]
+        if query:
+            sparql.setQuery(query)
+            sparql.setReturnFormat(JSON)
+            results = sparql.query().convert()
+
+            if not results["results"]["bindings"]:
+                print "No answer found :("
+                continue
+
+        print_handlers[query_type](results, target, metadata)
+        print

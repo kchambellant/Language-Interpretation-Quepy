@@ -64,3 +64,15 @@ class WhereIsFromQuestion(QuestionTemplate):
         label = LabelOf(birth_place)
 
         return label, "enum"
+
+class WhenIsBorn(QuestionTemplate):
+    """
+    Ex: 'When is born Tom Cruise?'
+    """
+
+    #regex = Lemma("when") + Lemma("be") + Lemma("born") + Person() + Question(Pos("."))
+    regex = Lemma("birth") + Lemma("date") + Pos("IN") + Person() + Question(Pos("."))
+
+    def interpret(self, match):
+        birth_date = BirthDateOf(match.person)
+        return birth_date, "date"

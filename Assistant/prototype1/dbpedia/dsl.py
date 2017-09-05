@@ -120,7 +120,7 @@ class ProducedBy(FixedRelation):
 
 
 class BirthDateOf(FixedRelation):
-    relation = "dbpprop:birthDate"
+    relation = "dbpedia-owl:birthDate"
     reverse = True
 
 
