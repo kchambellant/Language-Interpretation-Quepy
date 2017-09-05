@@ -33,6 +33,11 @@ def print_define(results, target, metadata=None):
             print result[target]["value"]
             print
 
+def print_date(results, target, metadata=None):
+    temp = []
+    for result in results["results"]["bindings"]:
+        temp.append(result[target]["value"])
+    print temp[0]
 
 def print_enum(results, target, metadata=None):
     used_labels = []
@@ -151,6 +156,7 @@ if __name__ == "__main__":
                 "time": print_time,
                 "literal": print_literal,
                 "age": print_age,
+                "date": print_date,
             }
 
         print "-" * len(question)
@@ -180,6 +186,5 @@ if __name__ == "__main__":
             if not results["results"]["bindings"]:
                 print "No answer found :("
                 continue
-
         print_handlers[query_type](results, target, metadata)
         print

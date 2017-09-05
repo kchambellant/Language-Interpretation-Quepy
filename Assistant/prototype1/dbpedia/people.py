@@ -67,11 +67,10 @@ class WhereIsFromQuestion(QuestionTemplate):
 
 class WhenIsBorn(QuestionTemplate):
     """
-    Ex: 'When is born Tom Cruise?'
+    Ex: 'When was Tom Cruise born?'
     """
 
-    #regex = Lemma("when") + Lemma("be") + Lemma("born") + Person() + Question(Pos("."))
-    regex = Lemma("birth") + Lemma("date") + Pos("IN") + Person() + Question(Pos("."))
+    regex = (Lemma("birth") + Lemma("date") + Pos("IN") + Person()) | (Lemma("when") + Lemma("be") + Person()) + Lemma("be born") + Question(Pos("."))
 
     def interpret(self, match):
         birth_date = BirthDateOf(match.person)
