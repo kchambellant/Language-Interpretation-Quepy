@@ -27,14 +27,32 @@ def get_arguments(argparse):
 
     return args
 
-if __name__ == "__main__":
-    args = get_arguments(argparse)
-
+def translate_question(question):
     translator = Translator()
-    question_trans = translator.translate(args.question)
-    data, metadata = SPARQLQuery.get_data_from_question(question_trans.text)
-    uri_id = utils.get_id_of_uri(data)
+    question = translator.translate(question)
 
-    result = data_settings.metaMap[metadata](uri_id, metadata)
+    return question.text
 
-    print(result)
+def handle_questions():
+    question = ''
+
+    while question != 'bye':
+        question = raw_input("Quelle est votre requête ? (Si vous voulez quitter, tapez 'bye'.)\n")
+
+        question = translate_question(question)
+
+        if question != 'bye':
+            data, metadata = SPARQLQuery.get_data_from_question(question)
+
+            if not data:
+                print(metadata % question)
+                continue
+
+            uri_id = utils.get_id_of_uri(data)
+
+            result = data_settings.metaMap[metadata](uri_id, metadata)
+
+            print(result)
+
+if __name__ == "__main__":
+    handle_questions()
