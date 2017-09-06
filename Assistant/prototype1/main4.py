@@ -34,10 +34,8 @@ def print_define(results, target, metadata=None):
             print
 
 def print_date(results, target, metadata=None):
-    temp = []
-    for result in results["results"]["bindings"]:
-        temp.append(result[target]["value"])
-    print temp[0]
+    print results["results"]["bindings"][0][target]["value"]
+    print
 
 def print_enum(results, target, metadata=None):
     used_labels = []
@@ -49,6 +47,7 @@ def print_enum(results, target, metadata=None):
                 if label not in used_labels:
                     used_labels.append(label)
                     print label
+                    print
 
 
 def print_literal(results, target, metadata=None):
@@ -58,6 +57,7 @@ def print_literal(results, target, metadata=None):
             print metadata.format(literal)
         else:
             print literal
+            print
 
 
 def print_time(results, target, metadata=None):
@@ -94,6 +94,7 @@ def print_time(results, target, metadata=None):
                    connector,
                    to_time.strftime("%H:%M on %A"),
                    location_string)
+            print
 
         else:
             offset = int(offset)
@@ -102,12 +103,12 @@ def print_time(results, target, metadata=None):
             the_time = gmt + delta
 
             print the_time.strftime("%H:%M on %A")
+            print
 
 
 def print_age(results, target, metadata=None):
-    assert len(results["results"]["bindings"]) == 1
-
     birth_date = results["results"]["bindings"][0][target]["value"]
+
     year, month, days = birth_date.split("-")
 
     birth_date = datetime.date(int(year), int(month), int(days))
@@ -117,6 +118,7 @@ def print_age(results, target, metadata=None):
 
     age = now - birth_date
     print "{} years old".format(age.days / 365)
+    print
 
 
 def wikipedia2dbpedia(wikipedia_url):
@@ -174,7 +176,7 @@ if __name__ == "__main__":
             print "Query not generated :(\n"
             continue
 
-        print query
+        #print query
 
         if target.startswith("?"):
             target = target[1:]
@@ -184,7 +186,8 @@ if __name__ == "__main__":
             results = sparql.query().convert()
 
             if not results["results"]["bindings"]:
-                print "No answer found :("
+                print "No answer found :(\n"
                 continue
+
         print_handlers[query_type](results, target, metadata)
         print

@@ -14,7 +14,7 @@ People related regex
 from refo import Plus, Question
 from quepy.dsl import HasKeyword
 from quepy.parsing import Lemma, Lemmas, Pos, QuestionTemplate, Particle
-from dsl import IsPerson, LabelOf, DefinitionOf, BirthDateOf, BirthPlaceOf
+from dsl import IsPerson, LabelOf, DefinitionOf, BirthDateOf, DeathDateOf, BirthPlaceOf
 
 
 class Person(Particle):
@@ -65,13 +65,26 @@ class WhereIsFromQuestion(QuestionTemplate):
 
         return label, "enum"
 
+
 class WhenIsBorn(QuestionTemplate):
     """
-    Ex: 'When was Tom Cruise born?'
+    Ex: 'Birth date of Tom Cruise?'
     """
 
-    regex = (Lemma("birth") + Lemma("date") + Pos("IN") + Person()) | (Lemma("when") + Lemma("be") + Person()) + Lemma("be born") + Question(Pos("."))
+    regex = Lemma("birth") + Lemma("date") + Pos("IN") + Person() + Question(Pos("."))
 
     def interpret(self, match):
         birth_date = BirthDateOf(match.person)
         return birth_date, "date"
+
+
+class WhenIsDead(QuestionTemplate):
+    """
+    Ex: 'Death date of Tom Cruise?'
+    """
+
+    regex = Lemma("death") + Lemma("date") + Pos("IN") + Person() + Question(Pos("."))
+
+    def interpret(self, match):
+        death_date = DeathDateOf(match.person)
+        return death_date, "date"
