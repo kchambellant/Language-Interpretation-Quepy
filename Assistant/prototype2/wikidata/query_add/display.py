@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import date
 
 def who_is(data):
     if data.has_key("age"):
@@ -19,9 +19,8 @@ def who_is(data):
             12: 'Decembre'
             }
         data["age"] = data["age"].replace("T00:00:00Z","")
-        annee = data["age"][:4]
-        mois = data["age"][5:7]
-        jour = data["age"][8:10]
+        annee, mois, jour = data["age"].split('-')
+
         data["age"] = jour + " " +mois_label[int(mois)] + " " + annee
     str = ""
     if data.has_key("metier"):
@@ -45,4 +44,18 @@ def capital(data):
         if type(data["nom"]) == list:
             data["nom"] = data["nom"][0]
     str="La capital de %s est %s" %(data["nom"], data["capital"])
+    return str
+
+def howoldis(data):
+    if data['death'][0] is None:
+        data['death'] = date.today().isoformat()
+        str= "%s a "%data['nom']
+    else:
+        data["death"] = data["death"].replace("T00:00:00Z","")
+        str= "%s est mort lorsqu'il avait  "%data['nom']
+    data["birth"] = data["birth"].replace("T00:00:00Z","")
+    annee_birth, mois_birth, jour_birth = data["birth"].split('-')
+    annee_death, mois_death, jour_death = data["death"].split('-')
+    age=int(annee_death) - int(annee_birth) - ((int(mois_death), int(jour_death))<(int(mois_birth), int(jour_birth)))
+    str += "%s ans"%age
     return str
