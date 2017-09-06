@@ -1,0 +1,2 @@
+Pour réussir à comprendre le code fourni par le site "", nous avons commencé par suivre le tutoriel que le site proposait. Cela nous a permis de décortiquer le cas des questions du type "What is a car?".
+Nous avons enchainé par l'implémentation par nous-mêmes de certaines questions qu'ils avaient déjà fait eux-mêmes. Comme il n'y avait aucun intérêt à implémenter de nouveau les questions qu'ils avaient déjà fait avec succès, la preuve de notre compréhension de la démarche réside dans notre implémentation d'une nouvelle question pas encore prise en charge par leur version. 
