@@ -41,8 +41,6 @@ def handle_questions():
 
             uri_id = utils.get_id_of_uri(data)
 
-            print(uri_id)
-
             result = data_settings.metaMap[metadata](uri_id, metadata)
 
             print(result)
