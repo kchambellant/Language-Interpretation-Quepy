@@ -5,3 +5,4 @@ Init for wikidata quepy.
 """
 
 from people import *
+from country import *

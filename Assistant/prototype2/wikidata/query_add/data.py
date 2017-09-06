@@ -14,3 +14,13 @@ def whois(uri_id, metadata):
         data[field] = SPARQLQuery.create_query(uri_id, fieldsMap[field])
 
     return display.who_is(data)
+
+def capital(uri_id, metadata):
+    data = {}
+
+    fieldsMap = data_settings.fieldsMap[metadata]
+
+    for field in fieldsMap:
+        data[field] = SPARQLQuery.create_query(uri_id, fieldsMap[field])
+
+    return display.capital(data)
