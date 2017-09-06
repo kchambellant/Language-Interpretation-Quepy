@@ -46,9 +46,7 @@ class SPARQLQuery(object):
     @staticmethod
     def create_query(uri_id, field):
         query = "SELECT DISTINCT ?x0Label WHERE{\n wd:"+uri_id+" "+field+" ?x0\n"+ 'SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }'+"\n}\n"
-
         data = SPARQLQuery.execute_query(query)
-
         return data
 
     @staticmethod

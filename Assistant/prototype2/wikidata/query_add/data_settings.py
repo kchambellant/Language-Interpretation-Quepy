@@ -5,7 +5,8 @@ import data
 
 metaMap = {
     'whois': data.whois,
-    'capital': data.capital
+    'capital': data.capital,
+    'howoldis': data.howoldis
 }
 
 fieldsMap = {
@@ -16,8 +17,13 @@ fieldsMap = {
         'genre': 'wdt:P21',
         'metier': 'wdt:P106'
     },
-    'capital':{
+    'capital': {
         'nom': 'wdt:P17',
         'capital': "wdt:P36"
+    },
+    'howoldis': {
+        'nom': 'wdt:P373',
+        'birth': 'wdt:P569',
+        'death': 'wdt:P570'
     }
 }

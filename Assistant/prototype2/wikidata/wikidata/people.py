@@ -30,3 +30,13 @@ class WhoIs(QuestionTemplate):
     def interpret(self, match):
         definition = ToGenerate(match.person)
         return definition , "whois"
+
+class HowOldIs(QuestionTemplate):
+    """
+    Ex: "How old is Tom Cruise?"
+    """
+    regex = Pos("WRB") + Lemma("old") + Lemma("be") + Person() + Question(Pos("."))
+    def interpret(self, match):
+        definition = ToGenerate(match.person)
+        return definition , "howoldis"
+    
