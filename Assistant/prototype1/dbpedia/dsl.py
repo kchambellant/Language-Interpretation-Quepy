@@ -124,6 +124,11 @@ class BirthDateOf(FixedRelation):
     reverse = True
 
 
+class DeathDateOf(FixedRelation):
+    relation = "dbpedia-owl:deathDate"
+    reverse = True
+
+
 class BirthPlaceOf(FixedRelation):
     relation = "dbpedia-owl:birthPlace"
     reverse = True
