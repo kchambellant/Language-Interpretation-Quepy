@@ -26,12 +26,26 @@ def get_arguments(argparse):
 
     return args
 
+def handle_questions():
+    question = ''
+
+    while question != 'bye':
+        question = raw_input("Quelle est votre requête ? (Si vous voulez quitter, tapez 'bye'.)\n")
+
+        if question != 'bye':
+            data, metadata = SPARQLQuery.get_data_from_question(question)
+
+            if not data:
+                print(metadata % question)
+                continue
+
+            uri_id = utils.get_id_of_uri(data)
+
+            print(uri_id)
+
+            result = data_settings.metaMap[metadata](uri_id, metadata)
+
+            print(result)
+
 if __name__ == "__main__":
-    args = get_arguments(argparse)
-
-    data, metadata = SPARQLQuery.get_data_from_question(args.question)
-    uri_id = utils.get_id_of_uri(data)
-
-    result = data_settings.metaMap[metadata](uri_id, metadata)
-
-    print(result)
+    handle_questions()

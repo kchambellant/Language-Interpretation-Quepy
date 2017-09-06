@@ -19,6 +19,9 @@ class SPARQLQuery(object):
     def get_data_from_question(cls, question):
         target, query, metadata = cls._quepy_query.get_query(question)
 
+        if not query:
+            return None, "Il n'est pas possible de traiter la question suivante : '%s'."
+
         query, target = cls.query_change(query, target)
 
         return cls.execute_query(query, metadata)
@@ -31,6 +34,9 @@ class SPARQLQuery(object):
         results = cls._sparql.query().convert()
 
         data = cls.get_data(results)
+
+        if not data:
+            return None, "Aucun résultat n'a été trouvé pour la question suivante : '%s'."
 
         if not metadata:
             return data
