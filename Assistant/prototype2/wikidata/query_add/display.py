@@ -14,7 +14,7 @@ def who_is(data):
         data["metier"] = ""
     if data.has_key("genre"):
         if data["genre"] == "masculin":
-            str = "%s %s %s. Il est né le %s dans le pays: %s" %(data["nom"], str_metier, data["metier"], data["age"], data["nation"])
+            str = "%s %s %s. Il est ne le %s dans le pays: %s" %(data["nom"], str_metier, data["metier"], data["age"], data["nation"])
         elif "feminin":
-            str = "%s %s %s. Elle est née le %s dans le pays: %s" %(data["nom"], str_metier, data["metier"], data["age"], data["nation"])
+            str = "%s %s %s. Elle est nee le %s dans le pays: %s" %(data["nom"], str_metier, data["metier"], data["age"], data["nation"])
     return str

@@ -3,6 +3,7 @@
 
 import data_settings
 from sparql_query import SPARQLQuery
+import display
 
 def whois(uri_id, metadata):
     data = {}
@@ -12,4 +13,4 @@ def whois(uri_id, metadata):
     for field in fieldsMap:
         data[field] = SPARQLQuery.create_query(uri_id, fieldsMap[field])
 
-    display.whois(data)
+    return display.who_is(data)

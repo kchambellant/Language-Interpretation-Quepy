@@ -13,9 +13,10 @@ import random
 import datetime
 
 from SPARQLWrapper import SPARQLWrapper, JSON, XML
-from sparql_query import SPARQLQuery
-import utils
-import data_settings
+from query_add.sparql_query import SPARQLQuery
+import query_add.utils as utils
+import query_add.data_settings as data_settings
+import query_add.data as data
 
 def get_arguments(argparse):
     parser = argparse.ArgumentParser(description='Quepy prototype number 1')
@@ -31,4 +32,6 @@ if __name__ == "__main__":
     data, metadata = SPARQLQuery.get_data_from_question(args.question)
     uri_id = utils.get_id_of_uri(data)
 
-    data_settings.metaMap[metadata](uri_id, metadata)
+    result = data_settings.metaMap[metadata](uri_id, metadata)
+
+    print(result)
