@@ -43,9 +43,10 @@ def print_personal(URI):
 def requeteCreation(URI, dico):
     request = "SELECT DISTINCT ?x0Label WHERE{\n wd:"+URI+" "+dico+" ?x0\n"+ 'SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }'+"\n}\n"
     return request
-    
+
 def requeteExecution(request):
     sparql.setQuery(request)
+    print(request)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     result = print_define(results, "x0Label")
@@ -57,13 +58,12 @@ if __name__ == "__main__":
     parser.add_argument("question", help='Question à poser sous la forme "question"')
     args = parser.parse_args()
 
-
     prototype1 = quepy.install("wikidata")
-    
+
     target, query, metadata = prototype1.get_query(args.question)
     query, target = query_change(query, target)
 
-    print("metadata: %s"%metadata)
+    print("metadata: %s" % metadata)
     print query
     sparql = SPARQLWrapper("https://query.wikidata.org/bigdata/namespace/wdq/sparql")
     if target.startswith("?"):
