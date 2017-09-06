@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
 """
@@ -14,6 +14,8 @@ import datetime
 
 from SPARQLWrapper import SPARQLWrapper, JSON, XML
 from sparql_query import SPARQLQuery
+import utils
+import data_settings
 
 def get_arguments(argparse):
     parser = argparse.ArgumentParser(description='Quepy prototype number 1')
@@ -26,10 +28,7 @@ def get_arguments(argparse):
 if __name__ == "__main__":
     args = get_arguments(argparse)
 
-    query = SPARQLQuery.get_query(args.question)
+    data, metadata = SPARQLQuery.get_data_from_question(args.question)
+    uri_id = utils.get_id_of_uri(data)
 
-    print(SPARQLQuery.execute_query(query))
-
-    query = """SELECT DISTINCT ?x0Label WHERE{wd:Q37079 wdt:P106 ?x0.SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }}"""
-
-    print(SPARQLQuery.execute_query(query))
+    data_settings.metaMap[metadata](uri_id, metadata)

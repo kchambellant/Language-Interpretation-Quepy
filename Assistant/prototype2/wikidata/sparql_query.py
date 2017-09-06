@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
 import quepy
@@ -16,21 +16,32 @@ class SPARQLQuery(object):
         return query, target
 
     @classmethod
-    def get_query(cls, question):
+    def get_data_from_question(cls, question):
         target, query, metadata = cls._quepy_query.get_query(question)
 
         query, target = cls.query_change(query, target)
 
-        return query
+        return cls.execute_query(query, metadata)
 
     @classmethod
-    def execute_query(cls, query):
+    def execute_query(cls, query, metadata=False):
         cls._sparql.setQuery(query)
         cls._sparql.setReturnFormat(JSON)
 
         results = cls._sparql.query().convert()
 
         data = cls.get_data(results)
+
+        if not metadata:
+            return data
+        else:
+            return data, metadata
+
+    @staticmethod
+    def create_query(uri_id, field):
+        query = "SELECT DISTINCT ?x0Label WHERE{\n wd:"+uri_id+" "+field+" ?x0\n"+ 'SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],fr". }'+"\n}\n"
+
+        data = SPARQLQuery.execute_query(query)
 
         return data
 
@@ -41,11 +52,17 @@ class SPARQLQuery(object):
         head = results['head']['vars']
 
         for result in results['results']['bindings']:
-            dataDict = {}
+            if len(head) == 1:
+                temp = result[head[0]]['value']
+            else:
+                temp = {}
 
-            for key in head:
-                dataDict[key] = result[key]['value']
+                for key in head:
+                    temp[key] = result[key]['value']
 
-            data.append(dataDict)
+            data.append(temp)
+
+        if len(data) == 1:
+            return data[0]
 
         return data
