@@ -29,7 +29,7 @@ dbpedia = quepy.install("dbpedia")
 
 def print_define(results, target, metadata=None):
     for result in results["results"]["bindings"]:
-        if result[target]["xml:lang"] == "en":
+        if result[target]["xml:lang"] == "fr":
             print result[target]["value"]
             print
 
@@ -42,7 +42,7 @@ def print_enum(results, target, metadata=None):
 
     for result in results["results"]["bindings"]:
         if result[target]["type"] == u"literal":
-            if result[target]["xml:lang"] == "en":
+            if result[target]["xml:lang"] == "fr":
                 label = result[target]["value"]
                 if label not in used_labels:
                     used_labels.append(label)
@@ -117,7 +117,7 @@ def print_age(results, target, metadata=None):
     now = now.date()
 
     age = now - birth_date
-    print "{} years old".format(age.days / 365)
+    print "{} ans".format(age.days / 365)
     print
 
 
@@ -151,6 +151,9 @@ if __name__ == "__main__":
     question = ""
     while question != "bye" :
         question = raw_input("Quelle est votre requête ? (Si vous voulez quitter, tapez 'bye'.)\n")
+        if question == "bye":
+            sys.exit()
+
         if question != "bye" :
             print_handlers = {
                 "define": print_define,
