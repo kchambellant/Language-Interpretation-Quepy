@@ -1,5 +1,8 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
 
 %opening
 \title{Mini assistant intelligent}
@@ -12,11 +15,31 @@
 Projet réalisé par Killian CHAMBELLANT, Nicolas DOUCHIN et Anaëlle MORIN à la demande de M. Nicolas DELESTRE dans le cadre des projets SOSI.
 
 
-\section{But du projet}
+\section*{But du projet}\par
 
-\section{Protoype 1}
+\section*{Protoype 1}\par
 
-\section{Protoype 2}
+\section*{Protoype 2}\par
+Le but de ce prototype est de reprendre le premier afin de pouvoir poser des questions en français.\par
+Pour pouvoir traiter une question en français il faut modifier le tokenizer qui gère le passage des questions en anglais (langage naturel) vers un langage formel. 
+Quepy utilise nativement nltkdata. Nous avons regardé s’il était possible d’utiliser un autre tokenizer qui aurait pu être soit une version française de nltk soit un autre. 
+Malheureusement, après analyse du code de quepy, nous en sommes venus à la conclusion que quepy était intrinsèquement lié à nltk (il y a un module python qui s’occupe de la liaison avec nltk qui est directement inclus dans quepy). 
+L’objectif du projet ne prenait pas en compte la modification de quepy. Et concernant nltk français, pour configurer quepy il aurait également fallu modifier quepy. 
+Pour réaliser le prototype 2, nous avons décidé d’utiliser une solution tierce non viable sur le long terme qui est de traduire avec google traduction les questions posées par l’utilisateur puis d’envoyer le résultat à quepy. 
+Comme dit précédemment, cette solution n’est pas viable sur le long terme car nous pourrions avoir des erreurs de traductions sur des questions plus complexes. 
+À noter également que google traduction gère correctement le passage du français vers l’anglais, mais que cela n’est pas vrai pour toutes les langues. 
+À terme, il sera donc nécessaire d’examiner une solution via un tokenizer pour gérer le support linguistique du programme. 
 
-\section{Prototype 3}
+\section*{Prototype 3}\par
+Le principe de ce prototype est de reprendre le programme et de l’adapter afin d’interroger la base de données "Wikidata".
+
+Wikidata est une base de données linguistiquement neutre et est basée sur des faits et non pas sur des opinions comme DBPedia qui est alimentée par Wikipédia.\par
+Le choix d’implémentation de base de quepy fait qu’il renvoie une chaine de caractères et non pas l’URI. Alors que nous voulions récupérer l’URI afin de pouvoir réaliser des requêtes sur des éléments précis et de pouvoir moduler les réponses.
+Pour pouvoir récupérer l’URI nous avons été obligés de modifier la requête générée à la volée avant qu’elle soit envoyée à Wikidata. 
+Grâce à l’URI récupérée et aux metadatas nous générons d’autres requêtes pour obtenir les informations pertinentes recherchées.
+Pour cela, nous avons ajouté un package contenant des modules permettant facilement l’ajout de types de question. Notamment par la déclaration de méthodes selon la metadata obtenue.\par
+
+\section*{Conclusion}
+Notre solution, bien que fonctionnelle, présente des défauts. Il aurait fallu que quepy propose un plus grand paramétrage pour la création de la requête et l’utilisation du tokenizer.
+De plus, il est important de noter que le développement de quepy est arrêté depuis deux ans.
 \end{document}
