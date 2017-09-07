@@ -46,7 +46,7 @@ def capital(data):
     str="La capital de %s est %s" %(data["nom"], data["capital"])
     return str
 
-def howoldis(data):
+def how_old_is(data):
     if data['death'][0] is None:
         data['death'] = date.today().isoformat()
         str= "%s a "%data['nom']
@@ -59,3 +59,38 @@ def howoldis(data):
     age=int(annee_death) - int(annee_birth) - ((int(mois_death), int(jour_death))<(int(mois_birth), int(jour_birth)))
     str += "%s ans"%age
     return str
+
+def population_of_question(data):
+    def intWithCommas(x):
+        if type(x) not in [type(0), type(0L)]:
+            raise TypeError("Parameter must be an integer.")
+        if x < 0:
+            return '-' + intWithCommas(-x)
+        result = ''
+        while x >= 1000:
+            x, r = divmod(x, 1000)
+            result = ",%03d%s" % (r, result)
+        return "%d%s" % (x, result)
+
+    population = intWithCommas(int(data['population']))
+
+    str = '%s personnes vivent dans le pays %s' % (population, data['nom'])
+
+    return str
+
+def president_of_question(data):
+    str_res = "Le chef d'état du pays %s est %s." % (str(data['nom']), str(data['president']))
+
+    return str_res
+
+def language_of_question(data):
+    str_res = 'Le pays %s a comme ' % str(data['nom'])
+
+    if type(data['language']) is list:
+        languages = ', '.join(data['language'])
+
+        str_res += 'langues officielles : %s.' % languages
+    else:
+        str_res += 'langue officielle : %s.' % data['language']
+
+    return str_res

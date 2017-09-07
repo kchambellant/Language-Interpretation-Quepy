@@ -33,15 +33,15 @@ def handle_questions():
         question = raw_input("Quelle est votre requête ? (Si vous voulez quitter, tapez 'bye'.)\n")
 
         if question != 'bye':
-            data, metadata = SPARQLQuery.get_data_from_question(question)
+            data_res, metadata = SPARQLQuery.get_data_from_question(question)
 
-            if not data:
+            if not data_res:
                 print(metadata % question)
                 continue
 
-            uri_id = utils.get_id_of_uri(data)
+            uri_id = utils.get_id_of_uri(data_res)
 
-            result = data_settings.metaMap[metadata](uri_id, metadata)
+            result = data.get_data_for_uri(uri_id, metadata)
 
             print(result)
 
