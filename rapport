@@ -1,0 +1,22 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+%opening
+\title{Mini assistant intelligent}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+Projet réalisé par Killian CHAMBELLANT, Nicolas DOUCHIN et Anaëlle MORIN à la demande de M. Nicolas DELESTRE dans le cadre des projets SOSI.
+
+
+\section{But du projet}
+
+\section{Protoype 1}
+
+\section{Protoype 2}
+
+\section{Prototype 3}
+\end{document}
