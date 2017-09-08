@@ -28,14 +28,14 @@ Il est à noter que le développement de Quepy a été arrêté depuis deux ans.
 
 \section*{Protoype 2}\par
 Le but de ce prototype est de reprendre le premier afin de pouvoir poser des questions en français.\par
-Pour pouvoir traiter une question en français il faut modifier le tokenizer qui gère le passage des questions en anglais (langage naturel) vers un langage formel. 
-Quepy utilise nativement nltkdata. Nous avons regardé s’il était possible d’utiliser un autre tokenizer qui aurait pu être soit une version française de nltk soit un autre. 
+Pour pouvoir traiter une question en français il faut modifier le tagger qui gère le passage des questions en anglais (langage naturel) vers un langage formel. 
+Quepy utilise nativement nltkdata. Nous avons regardé s’il était possible d’utiliser un autre tagger qui aurait pu être soit une version française de nltk soit un autre. 
 Malheureusement, après analyse du code de quepy, nous en sommes venus à la conclusion que quepy était intrinsèquement lié à nltk (il y a un module python qui s’occupe de la liaison avec nltk qui est directement inclus dans quepy). 
 L’objectif du projet ne prenait pas en compte la modification de quepy. Et concernant nltk français, pour configurer quepy il aurait également fallu modifier quepy. 
 Pour réaliser le prototype 2, nous avons décidé d’utiliser une solution tierce non viable sur le long terme qui est de traduire avec google traduction les questions posées par l’utilisateur puis d’envoyer le résultat à quepy. 
 Comme dit précédemment, cette solution n’est pas viable sur le long terme car nous pourrions avoir des erreurs de traductions sur des questions plus complexes. 
 À noter également que google traduction gère correctement le passage du français vers l’anglais, mais que cela n’est pas vrai pour toutes les langues. 
-À terme, il sera donc nécessaire d’examiner une solution via un tokenizer pour gérer le support linguistique du programme. 
+À terme, il sera donc nécessaire d’examiner une solution via un tagger pour gérer le support linguistique du programme. 
 
 \section*{Prototype 3}\par
 Le principe de ce prototype est de reprendre le programme et de l’adapter afin d’interroger la base de données "Wikidata".
@@ -47,7 +47,7 @@ Grâce à l’URI récupérée et aux metadatas nous générons d’autres requ�
 Pour cela, nous avons ajouté un package contenant des modules permettant facilement l’ajout de types de question. Notamment par la déclaration de méthodes selon la metadata obtenue.\par
 
 \section*{Pistes d'amélioration}
-Notre solution, bien que fonctionnelle pour quelques questions, présente de différents défauts. Tout d'abord, quelque soit Il aurait fallu que quepy propose un plus grand paramétrage pour la création de la requête et l’utilisation du tokenizer.
+Notre solution, bien que fonctionnelle pour quelques questions, présente de différents défauts. Tout d'abord, quelque soit Il aurait fallu que quepy propose un plus grand paramétrage pour la création de la requête et l’utilisation du tagger.
 
 
 \end{document}
