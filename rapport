@@ -3,6 +3,7 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
 \usepackage[francais]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{url}
 
 %opening
 \title{Mini assistant intelligent}
@@ -16,8 +17,18 @@ Projet réalisé par Killian CHAMBELLANT, Nicolas DOUCHIN et Anaëlle MORIN à l
 
 
 \section*{But du projet}\par
+Le but de ce projet est de créer un mini assistant capable de répondre à une question qui lui a été posée en langue naturelle. 
+Dans un premier temps, cette question doit être reformulée par le programme pour devenir une requête formelle permettant d'interrogée la base de données. La réponse fournie doit être récupérée par le programme dans un type de base de données particulière du web appelée le web des données liées.\par 
+Ce genre de programme a déjà été traité par le passé. Il nous a donc été demandé d'utiliser le framework Python Quepy qui permet déjà de transformer une question posée en langage naturelle en une requête formelle. À partir de cela trois prototypes étaient à fournir pour explorer différentes possibilités : \par
+\begin{itemize}
+\item La première version devait reprendre le travail réalisé par Machinalis et fonctionné comme le site \url{http://quepy.machinalis.com/}. On avait ici une question en anglais qui était traitée et la réponse cherchée dans la base DBPedia.
+\item La deuxième version devait permettre de poser les questions en français au lieu de l'anglais.
+\item Enfin la troisième version devait requêter la base de données Wikidata.
+\end{itemize}\par
+Il est à noter que le développement de Quepy a été arrêté depuis deux ans.
 
 \section*{Protoype 1}\par
+
 
 \section*{Protoype 2}\par
 Le but de ce prototype est de reprendre le premier afin de pouvoir poser des questions en français.\par
@@ -39,7 +50,6 @@ Pour pouvoir récupérer l’URI nous avons été obligés de modifier la requê
 Grâce à l’URI récupérée et aux metadatas nous générons d’autres requêtes pour obtenir les informations pertinentes recherchées.
 Pour cela, nous avons ajouté un package contenant des modules permettant facilement l’ajout de types de question. Notamment par la déclaration de méthodes selon la metadata obtenue.\par
 
-\section*{Conclusion}
-Notre solution, bien que fonctionnelle, présente des défauts. Il aurait fallu que quepy propose un plus grand paramétrage pour la création de la requête et l’utilisation du tokenizer.
-De plus, il est important de noter que le développement de quepy est arrêté depuis deux ans.
+\section*{Pistes d'amélioration}
+Notre solution, bien que fonctionnelle pour quelques questions, présente de différents défauts. Tout d'abord, quelque soit Il aurait fallu que quepy propose un plus grand paramétrage pour la création de la requête et l’utilisation du tokenizer.
 \end{document}

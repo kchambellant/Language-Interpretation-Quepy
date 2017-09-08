@@ -146,7 +146,7 @@ def wikipedia2dbpedia(wikipedia_url):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Quepy prototype number 1')
+    parser = argparse.ArgumentParser(description='Quepy prototype numéro 1')
 
     question = ""
     while question != "bye" :
@@ -176,7 +176,7 @@ if __name__ == "__main__":
             metadata = None
 
         if query is None:
-            print "Query not generated :(\n"
+            print "Requête non générée :(\n"
             continue
 
         #print query
@@ -189,7 +189,7 @@ if __name__ == "__main__":
             results = sparql.query().convert()
 
             if not results["results"]["bindings"]:
-                print "No answer found :(\n"
+                print "Aucune réponse trouvée :(\n"
                 continue
 
         print_handlers[query_type](results, target, metadata)
