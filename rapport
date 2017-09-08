@@ -1,6 +1,6 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
 \usepackage[francais]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{url}
@@ -51,5 +51,9 @@ Grâce à l’URI récupérée et aux metadatas nous générons d’autres requ�
 Pour cela, nous avons ajouté un package contenant des modules permettant facilement l’ajout de types de question. Notamment par la déclaration de méthodes selon la metadata obtenue.\par
 
 \section*{Pistes d'amélioration}
-Notre solution, bien que fonctionnelle pour quelques questions, présente de différents défauts. Tout d'abord, quelque soit Il aurait fallu que quepy propose un plus grand paramétrage pour la création de la requête et l’utilisation du tokenizer.
+Notre solution, bien que fonctionnelle pour quelques questions, présente différents défauts. Tout d'abord, quelque soit le prototype, le nombre de questions traité n'est pas très élevé. 
+De plus, comme le prouve l'amélioration faite dans le prototype 1, il existe des questions traitées mais qui peuvent encore être améliorées.\par 
+Les regex ne sont pas parfaites non plus. Par exemple, un prénom contenant un "-" ne sera pas pris en compte ou la question pour "What is" pour une entité de plusieurs mots telle que "Institut national des sciences appliquées de Rouen" ne fonctionne pas encore. Mais grâce au découpage du code ce sont des améliorations faciles à faie.\par
+Une autre chose à améliorer aurait été de permettre dès le prototype 1 l'envoi de plusieurs requêtes pour une seule question formulée. En effet, actuellement l'âge retourné pour une personne morte est le nombre d'années écoulées depuis sa naissance car, de part sa découpe, le code ne permet pas d'envoyer une requête à la fois pour la date de naissance et pour celle de mort. Une plus grande modularité est donc requise comme faite à partir du deuxième prototype. \par
+Enfin, comme dit précédemment, la gestion de la langue française en passant par google traduction n'est pas viable sur le long terme et ne permet pas la gestion de questions trop compliquées. Il reste à trouver et à faire fonctionner un tagger.
 \end{document}
