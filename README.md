@@ -1,4 +1,4 @@
-# SOSI4
+# Language-Interpretation-Quepy
 Pour faire fonctionner le projet il faut utiliser le python 2.7.
 Il est possible d'installer un environnement virtuel.
 
