@@ -1,6 +1,6 @@
 # Language-Interpretation-Quepy
 
-# EN
+### EN
 Quepy is only availabe with Python 2.7.
 This project require a virtual environment.
 
@@ -15,7 +15,7 @@ And to install all the packages the project needs:
   
 The project is now ready to be used.
 
-# FR
+### FR
 Pour faire fonctionner le projet il faut utiliser le python 2.7.
 Il est possible d'installer un environnement virtuel.
 
